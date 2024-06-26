@@ -1,0 +1,27 @@
+O que foi realizado na parte da implementação individualmente
+
+Guilherme Teixeira 2221851
+
+Controllers -> 
+ControllerReserva
+ControllerSocio
+
+Model ->
+Socio
+Reserva
+Livro
+
+View ->
+
+EditarSocioForm
+ListaLivrosRequitadosForm
+ListaReservasForm
+ListaSocioForm
+MinhasReservasForm
+NovoSocioForm
+PesquisarReservaPorLivroForm
+PesquisarSocioForm
+PesquisarSocioFormMinhasReservas
+PesquisarSocioFormReserva
+VisualizarSocioForm
+
