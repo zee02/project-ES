@@ -3,26 +3,62 @@ package controller;
 import model.Reserva;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Iterator;
 
 public class ReservaController {
-    private List<Reserva> reservas = new ArrayList<>();
+    private static ReservaController instance;
+    private List<Reserva> reservas;
 
-    public String adicionarReserva(Reserva reserva) {
-        reservas.add(reserva);
-        return "Reserva do Livro confirmada";
+    private ReservaController() {
+        reservas = new ArrayList<>();
     }
 
-    public List<Reserva> listarReservas() {
+    public static ReservaController getInstance() {
+        if (instance == null) {
+            instance = new ReservaController();
+        }
+        return instance;
+    }
+
+    public void adicionarReserva(Reserva reserva) {
+        reservas.add(reserva);
+        System.out.println("Reserva adicionada: " + reserva);
+    }
+
+    public List<Reserva> getTodasReservas() {
         return reservas;
     }
 
-    public List<Reserva> listarReservasPorSocio(String idSocio) {
-        List<Reserva> resultado = new ArrayList<>();
+    public List<Reserva> getReservasBySocioId(int socioId) {
+        List<Reserva> reservasDoSocio = new ArrayList<>();
         for (Reserva reserva : reservas) {
-            if (reserva.getIdSocio().equals(idSocio)) {
-                resultado.add(reserva);
+            if (reserva.getSocioId() == socioId) {
+                reservasDoSocio.add(reserva);
             }
         }
-        return resultado;
+        return reservasDoSocio;
     }
+
+    public List<Reserva> getReservasByLivroId(int livroId) {
+        List<Reserva> result = new ArrayList<>();
+        for (Reserva reserva : reservas) {
+            if (reserva.getLivro().getId() == livroId) {
+                result.add(reserva);
+            }
+        }
+        return result;
+    }
+
+
+    public void removerReserva(Reserva reserva) {
+        Iterator<Reserva> iterator = reservas.iterator();
+        while (iterator.hasNext()) {
+            Reserva r = iterator.next();
+            if (r.equals(reserva)) {
+                iterator.remove();
+                return;
+            }
+        }
+    }
+
 }

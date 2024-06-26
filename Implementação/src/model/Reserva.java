@@ -1,59 +1,34 @@
+// model/Reserva.java
 package model;
 
 public class Reserva {
-    private String idSocio;
-    private String tituloLivro;
-    private String autorLivro;
-    private int numPessoasListaEspera;
+    private Livro livro;
+    private int socioId;
 
-    // Construtor
-    public Reserva(String idSocio, String tituloLivro, String autorLivro, int numPessoasListaEspera) {
-        this.idSocio = idSocio;
-        this.tituloLivro = tituloLivro;
-        this.autorLivro = autorLivro;
-        this.numPessoasListaEspera = numPessoasListaEspera;
+    private String funcionario;
+
+    public Reserva(Livro livro, int socioId, String funcionario) {
+        this.livro = livro;
+        this.socioId = socioId;
+        this.funcionario = funcionario;
+
     }
 
-    // Getters e Setters
-    public String getIdSocio() {
-        return idSocio;
+    public Livro getLivro() {
+        return livro;
     }
 
-    public void setIdSocio(String idSocio) {
-        this.idSocio = idSocio;
+    public int getSocioId() {
+        return socioId;
     }
 
-    public String getTituloLivro() {
-        return tituloLivro;
-    }
 
-    public void setTituloLivro(String tituloLivro) {
-        this.tituloLivro = tituloLivro;
-    }
-
-    public String getAutorLivro() {
-        return autorLivro;
-    }
-
-    public void setAutorLivro(String autorLivro) {
-        this.autorLivro = autorLivro;
-    }
-
-    public int getNumPessoasListaEspera() {
-        return numPessoasListaEspera;
-    }
-
-    public void setNumPessoasListaEspera(int numPessoasListaEspera) {
-        this.numPessoasListaEspera = numPessoasListaEspera;
+    public String getFuncionario() {
+        return funcionario;
     }
 
     @Override
     public String toString() {
-        return "Reserva{" +
-                "idSocio='" + idSocio + '\'' +
-                ", tituloLivro='" + tituloLivro + '\'' +
-                ", autorLivro='" + autorLivro + '\'' +
-                ", numPessoasListaEspera=" + numPessoasListaEspera +
-                '}';
+        return "Livro: " + livro.getAutor() + ", Sócio ID: " + socioId + ", Funcionário: " + funcionario;
     }
 }

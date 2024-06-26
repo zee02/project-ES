@@ -15,6 +15,8 @@ public class MainForm extends JFrame {
     private JButton gestaoPagamentosMultasButton; // Botão para Gestão de Pagamentos e Multas
     private JButton pesquisaEstatisticasButton; // Botão para Pesquisa e Estatísticas
 
+    private JButton gestaoMinhasReservasButton;
+
 
     public MainForm() {
         // Inicialize os componentes
@@ -27,6 +29,7 @@ public class MainForm extends JFrame {
         gestaoReservasButton = new JButton("Gestão de Reservas"); // Botão para Gestão de Reservas
         gestaoPagamentosMultasButton = new JButton("Gestão de Pagamentos e Multas"); // Botão para Gestão de Pagamentos e Multas
         pesquisaEstatisticasButton = new JButton("Pesquisa e Estatísticas"); // Botão para Pesquisa e Estatísticas
+        gestaoMinhasReservasButton = new JButton("Minhas Reservas");
 
         // Configure o layout do painel
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -38,6 +41,7 @@ public class MainForm extends JFrame {
         mainPanel.add(gestaoReservasButton); // Adicionar o botão de Gestão de Reservas
         mainPanel.add(gestaoPagamentosMultasButton); // Adicionar o botão de Gestão de Pagamentos e Multas
         mainPanel.add(pesquisaEstatisticasButton); // Adicionar o botão de Pesquisa e Estatísticas
+        mainPanel.add(gestaoMinhasReservasButton);
 
 
         // Configure o JFrame
@@ -91,8 +95,15 @@ public class MainForm extends JFrame {
         gestaoReservasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GestaoReservasForm gestaoReservasForm = new GestaoReservasForm();
-                gestaoReservasForm.setVisible(true);
+                PesquisarSocioFormReserva pesquisarSocioFormReserva = new PesquisarSocioFormReserva();
+                pesquisarSocioFormReserva.setVisible(true);
+            }
+        });
+        gestaoMinhasReservasButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PesquisarSocioFormMinhasReservas pesquisarSocioFormMinhasReservas = new PesquisarSocioFormMinhasReservas();
+                pesquisarSocioFormMinhasReservas.setVisible(true);
             }
         });
 

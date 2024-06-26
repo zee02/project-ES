@@ -49,9 +49,9 @@ public class LivroForm extends JFrame {
         gerenciarEstadoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String id = idField.getText();
+               // int id = idField.getText();
                 String estado = (String) estadoComboBox.getSelectedItem();
-                livroController.gerenciarEstadoLivro(id, estado);
+             //   livroController.gerenciarEstadoLivro(id, estado);
                 updateOutput();
             }
         });
@@ -60,7 +60,7 @@ public class LivroForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String id = idField.getText();
-                if (livroController.restaurarLivro(id)) {
+                if (livroController.restaurarLivro(Integer.parseInt(id))) {
                     JOptionPane.showMessageDialog(LivroForm.this, "Livro enviado para restauro!");
                     updateOutput();
                 } else {

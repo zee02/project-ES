@@ -1,5 +1,8 @@
-// NovaReservaForm.java
 package view;
+
+import controller.ReservaController;
+import model.Livro;
+import model.Reserva;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,66 +10,79 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class NovaReservaForm extends JFrame {
+    private Livro livro;
+    private int socioId;
+    private JTextField funcionarioField;
+    private JButton adicionarButton;
 
-    public NovaReservaForm() {
+
+    public NovaReservaForm(Livro livro, int socioId) {
+        this.livro = livro;
+        this.socioId = socioId;
+
+
         setTitle("Nova Reserva");
-        setSize(400, 300); // Ajustando o tamanho da janela
+        setSize(400, 200);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
 
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.insets = new Insets(5, 5, 5, 5);
+        constraints.insets = new Insets(10, 10, 10, 10);
 
-        JLabel livroInfoLabel = new JLabel("Informações do Livro:");
-        livroInfoLabel.setFont(new Font("Arial", Font.BOLD, 16)); // Ajustando a fonte para um título
-
-        JTextArea livroTextArea = new JTextArea(5, 30);
-        livroTextArea.setEditable(false);
-        JScrollPane scrollPane = new JScrollPane(livroTextArea);
-
-        // Simulando informações de um livro para a reserva
-        String infoLivro = "Título: Livro Exemplo\nAutor: Autor Exemplo\nNº de pessoas em lista de espera: 5";
-        livroTextArea.setText(infoLivro);
-
-        JLabel funcionarioLabel = new JLabel("Selecione o funcionário:");
-        JComboBox<String> funcionarioComboBox = new JComboBox<>(new String[]{"Funcionário 1", "Funcionário 2", "Funcionário 3"});
-
-        JButton adicionarButton = new JButton("Adicionar");
-        adicionarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Aqui seria o código para confirmar a reserva
-                JOptionPane.showMessageDialog(NovaReservaForm.this, "Reserva do Livro confirmada");
-                dispose();
-            }
-        });
-
+        JLabel tituloLabel = new JLabel("Título: " + livro.getNome());
         constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.gridwidth = 2;
-        panel.add(livroInfoLabel, constraints);
+        panel.add(tituloLabel, constraints);
 
+        JLabel autorLabel = new JLabel("Autor: " + livro.getAutor());
         constraints.gridx = 0;
         constraints.gridy = 1;
         constraints.gridwidth = 2;
-        panel.add(scrollPane, constraints);
+        panel.add(autorLabel, constraints);
 
+        JLabel socioLabel = new JLabel("ID do Sócio: " + socioId);
         constraints.gridx = 0;
         constraints.gridy = 2;
-        constraints.gridwidth = 1;
-        panel.add(funcionarioLabel, constraints);
+        constraints.gridwidth = 2;
+        panel.add(socioLabel, constraints);
 
-        constraints.gridx = 1;
-        constraints.gridy = 2;
-        panel.add(funcionarioComboBox, constraints);
-
+        JLabel funcionarioLabel = new JLabel("Funcionário:");
         constraints.gridx = 0;
         constraints.gridy = 3;
+        panel.add(funcionarioLabel, constraints);
+
+        funcionarioField = new JTextField(10);
+        constraints.gridx = 1;
+        constraints.gridy = 3;
+        panel.add(funcionarioField, constraints);
+
+        adicionarButton = new JButton("Adicionar");
+        constraints.gridx = 0;
+        constraints.gridy = 4;
         constraints.gridwidth = 2;
+        constraints.anchor = GridBagConstraints.CENTER;
         panel.add(adicionarButton, constraints);
 
-        setContentPane(panel);
+        add(panel);
+
+        adicionarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String funcionario = funcionarioField.getText().trim();
+                if (!funcionario.isEmpty()) {
+                    Reserva novaReserva = new Reserva(livro, socioId, funcionario);
+                    ReservaController.getInstance().adicionarReserva(novaReserva);
+                    JOptionPane.showMessageDialog(NovaReservaForm.this, "Reserva adicionada com sucesso!");
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(NovaReservaForm.this, "Por favor, insira o nome do funcionário.");
+                }
+            }
+        });
+
         setVisible(true);
     }
 }

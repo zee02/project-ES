@@ -1,17 +1,22 @@
 package model;
 
 public class Livro {
-    private String id;
+    private int id;
     private String nome;
     private String estado;
 
-    public Livro(String id, String nome, String estado) {
+    private int numeroPessoasEspera;
+    private String autor;
+
+    public Livro(int id, String nome, String estado,String autor,int numeroPessoasEspera) {
         this.id = id;
         this.nome = nome;
         this.estado = estado;
+        this.autor = autor;
+        this.numeroPessoasEspera = numeroPessoasEspera;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -21,6 +26,14 @@ public class Livro {
 
     public String getEstado() {
         return estado;
+    }
+
+    public String getAutor() {
+        return autor;
+
+    }
+    public int getNumeroPessoasEspera() {
+        return numeroPessoasEspera;
     }
 
     public void setEstado(String estado) {
