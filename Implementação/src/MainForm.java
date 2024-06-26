@@ -1,4 +1,9 @@
+
+import view.LandingPage;
+import view.NomeValidadoListener;
+
 import view.*;
+
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -95,7 +100,7 @@ public class MainForm extends JFrame {
 
     // Método para abrir a Landing Page e iniciar o fluxo de login
     private void abrirLandingPage() {
-        LandingPageNomeForm landingPageNomeForm = new LandingPageNomeForm();
+        LandingPage landingPageNomeForm = new LandingPage();
         landingPageNomeForm.setVisible(true);
         landingPageNomeForm.addNomeValidadoListener(new NomeValidadoListener() {
             @Override

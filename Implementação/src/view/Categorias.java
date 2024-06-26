@@ -1,10 +1,10 @@
 package view;
 import javax.swing.*;
 
-public class LandingPageOpcoesForm extends JFrame {
+public class Categorias extends JFrame {
     private JPanel opcoesPanel;
 
-    public LandingPageOpcoesForm(String nome) {
+    public Categorias(String nome) {
         // Configurações básicas do JFrame
         super("Landing Page - Opções");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -32,7 +32,7 @@ public class LandingPageOpcoesForm extends JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                LandingPageOpcoesForm form = new LandingPageOpcoesForm("Nome do Funcionário");
+                Categorias form = new Categorias("Nome do Funcionário");
                 form.setVisible(true);
             }
         });

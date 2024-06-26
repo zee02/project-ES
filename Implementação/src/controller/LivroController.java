@@ -1,27 +1,48 @@
 package controller;
+
 import model.Livro;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class LivroController {
-    private Map<String, String> estadosLivros;
+    private List<Livro> livros;
 
     public LivroController() {
-        this.estadosLivros = new HashMap<>();
+        this.livros = new ArrayList<>();
+        inicializarLivros();
+    }
+
+    private void inicializarLivros() {
+        livros.add(new Livro("1", "Piratas", "Novo"));
+        livros.add(new Livro("2", "Tesouro", "Novo"));
+        livros.add(new Livro("3", "Ilha Misteriosa", "Usado"));
     }
 
     public void gerenciarEstadoLivro(String idLivro, String estado) {
-        estadosLivros.put(idLivro, estado);
+        Livro livro = encontrarLivroPorId(idLivro);
+        if (livro != null) {
+            livro.setEstado(estado);
+        }
     }
 
     public void restaurarLivro(String idLivro) {
-        estadosLivros.remove(idLivro);
+        Livro livro = encontrarLivroPorId(idLivro);
+        if (livro != null) {
+            livro.setEstado("Disponível");
+        }
     }
 
-    public List<String> listarEstadosLivros() {
-        return new ArrayList<>(estadosLivros.values());
+    public List<Livro> getLivros() {
+        return livros;
+    }
+
+    private Livro encontrarLivroPorId(String idLivro) {
+        for (Livro livro : livros) {
+            if (livro.getId().equals(idLivro)) {
+                return livro;
+            }
+        }
+        return null;
     }
 }

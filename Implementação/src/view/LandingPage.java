@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LandingPageNomeForm extends JFrame {
+public class LandingPage extends JFrame {
     private JPanel mainPanel;
     private JTextField nomeTextField;
     private JButton entrarButton;
@@ -17,7 +17,7 @@ public class LandingPageNomeForm extends JFrame {
     // Listener para validar o nome
     private NomeValidadoListener nomeValidadoListener;
 
-    public LandingPageNomeForm() {
+    public LandingPage() {
         // Inicialização da lista de nomes autorizados
         nomesAutorizados = new ArrayList<>();
         nomesAutorizados.add("Joao");
@@ -74,7 +74,7 @@ public class LandingPageNomeForm extends JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new LandingPageNomeForm().setVisible(true);
+                new LandingPage().setVisible(true);
             }
         });
     }
