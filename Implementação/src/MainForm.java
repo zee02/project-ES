@@ -14,14 +14,14 @@ public class MainForm extends JFrame {
     private JButton gestaoReservasButton; // Botão para Gestão de Reservas
     private JButton gestaoPagamentosMultasButton; // Botão para Gestão de Pagamentos e Multas
     private JButton pesquisaEstatisticasButton; // Botão para Pesquisa e Estatísticas
-
+    private JLabel bemVindoLabel;
     private JButton gestaoMinhasReservasButton;
     private JButton pesquisaReservaPorLivroButton;
-
 
     public MainForm() {
         // Inicialize os componentes
         mainPanel = new JPanel();
+        bemVindoLabel = new JLabel("Bem-vindo!");
         gerirFuncionariosButton = new JButton("Gerir Funcionários");
         gerirLivrosButton = new JButton("Gerir Livros");
         gerirSociosButton = new JButton("Novo Sócio");
@@ -35,6 +35,7 @@ public class MainForm extends JFrame {
 
         // Configure o layout do painel
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.add(bemVindoLabel);
         mainPanel.add(gerirFuncionariosButton);
         mainPanel.add(gerirLivrosButton);
         mainPanel.add(gerirSociosButton);
@@ -45,8 +46,6 @@ public class MainForm extends JFrame {
         mainPanel.add(pesquisaEstatisticasButton); // Adicionar o botão de Pesquisa e Estatísticas
         mainPanel.add(gestaoMinhasReservasButton);
         mainPanel.add(pesquisaReservaPorLivroButton);
-
-
 
         // Configure o JFrame
         setContentPane(mainPanel);
@@ -96,8 +95,6 @@ public class MainForm extends JFrame {
             }
         });
 
-
-
         pesquisaSocioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -113,6 +110,7 @@ public class MainForm extends JFrame {
                 pesquisarSocioFormReserva.setVisible(true);
             }
         });
+
         gestaoMinhasReservasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -137,14 +135,47 @@ public class MainForm extends JFrame {
             }
         });
 
+        // Inicialmente, o MainForm não é visível
+        setVisible(false);
+    }
+
+    public void mostrarPaginaPrincipal(String nome) {
+        // Atualiza o label de boas-vindas com o nome
+        bemVindoLabel.setText("Bem-vindo, " + nome + "!");
+        // Define o JFrame como visível
         setVisible(true);
+    }
+
+    private void abrirLandingPage() {
+        LandingPage landingPageNomeForm = new LandingPage();
+        landingPageNomeForm.setVisible(true);
+        landingPageNomeForm.addNomeValidadoListener(new NomeValidadoListener() {
+            @Override
+            public void nomeValidado(String nome) {
+                // Quando o nome é validado, exibir MainForm
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        mostrarPaginaPrincipal(nome);
+                        landingPageNomeForm.dispose(); // Fechar a Landing Page
+                    }
+                });
+            }
+
+            @Override
+            public void nomeInvalido() {
+                // Caso o nome seja inválido (não tratado no exemplo anterior)
+                JOptionPane.showMessageDialog(MainForm.this, "Ocorreu um erro, o teu pedido de acesso não teve sucesso");
+            }
+        });
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new MainForm().setVisible(true);
+                MainForm mainForm = new MainForm();
+                mainForm.abrirLandingPage(); // Abre a Landing Page inicialmente
             }
         });
     }
