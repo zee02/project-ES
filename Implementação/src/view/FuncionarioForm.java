@@ -165,11 +165,12 @@ public class FuncionarioForm extends JFrame {
         rankingButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Implementar a lógica para exibir o ranking dos funcionários
-                // Aqui você pode abrir uma nova janela ou dialog para exibir o ranking
-                JOptionPane.showMessageDialog(FuncionarioForm.this, "Funcionalidade de Ranking ainda não implementada.");
+                RankingFuncionariosForm rankingForm = new RankingFuncionariosForm(funcionarioController);
+                rankingForm.setVisible(true); // Exibe a janela de ranking ao clicar no botão
             }
         });
+
+
 
         JButton btnVoltar = new JButton("Voltar");
         btnVoltar.addActionListener(new ActionListener() {

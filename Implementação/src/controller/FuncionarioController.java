@@ -32,6 +32,8 @@ public class FuncionarioController {
         }
     }
 
+
+
     public void apagarFuncionario(String nome) {
         funcionarios.removeIf(f -> f.getNome().equals(nome));
     }
@@ -54,4 +56,7 @@ public class FuncionarioController {
             }
         }
     }
+
+
+
 }
