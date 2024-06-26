@@ -27,7 +27,7 @@ public class EditarSocioForm extends JFrame {
         }
 
         setTitle("Editar Sócio");
-        setSize(400, 300);
+        setSize(500, 400); // Ajustando o tamanho da janela
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -37,12 +37,14 @@ public class EditarSocioForm extends JFrame {
         constraints.insets = new Insets(5, 5, 5, 5);
 
         idLabel = new JLabel("ID: " + socio.getId());
+        idLabel.setFont(new Font("Arial", Font.BOLD, 16)); // Definindo fonte maior e em negrito
         constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.gridwidth = 2;
         panel.add(idLabel, constraints);
 
         JLabel nomeLabel = new JLabel("Nome:");
+        nomeLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Definindo fonte maior
         constraints.gridx = 0;
         constraints.gridy = 1;
         constraints.gridwidth = 1;
@@ -54,6 +56,7 @@ public class EditarSocioForm extends JFrame {
         panel.add(nomeField, constraints);
 
         JLabel nifLabel = new JLabel("NIF/CC:");
+        nifLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Definindo fonte maior
         constraints.gridx = 0;
         constraints.gridy = 2;
         panel.add(nifLabel, constraints);
@@ -64,6 +67,7 @@ public class EditarSocioForm extends JFrame {
         panel.add(nifField, constraints);
 
         JLabel telefoneLabel = new JLabel("Telefone:");
+        telefoneLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Definindo fonte maior
         constraints.gridx = 0;
         constraints.gridy = 3;
         panel.add(telefoneLabel, constraints);
@@ -74,6 +78,7 @@ public class EditarSocioForm extends JFrame {
         panel.add(telefoneField, constraints);
 
         JLabel moradaLabel = new JLabel("Morada:");
+        moradaLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Definindo fonte maior
         constraints.gridx = 0;
         constraints.gridy = 4;
         panel.add(moradaLabel, constraints);
@@ -84,6 +89,7 @@ public class EditarSocioForm extends JFrame {
         panel.add(moradaField, constraints);
 
         JLabel emailLabel = new JLabel("Email:");
+        emailLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Definindo fonte maior
         constraints.gridx = 0;
         constraints.gridy = 5;
         panel.add(emailLabel, constraints);
@@ -94,6 +100,7 @@ public class EditarSocioForm extends JFrame {
         panel.add(emailField, constraints);
 
         JLabel tipoNotificacaoLabel = new JLabel("Tipo de Notificação:");
+        tipoNotificacaoLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Definindo fonte maior
         constraints.gridx = 0;
         constraints.gridy = 6;
         panel.add(tipoNotificacaoLabel, constraints);
@@ -106,12 +113,14 @@ public class EditarSocioForm extends JFrame {
         panel.add(tipoNotificacaoComboBox, constraints);
 
         funcionarioLabel = new JLabel("Funcionário: " + socio.getFuncionario());
+        funcionarioLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Definindo fonte maior
         constraints.gridx = 0;
         constraints.gridy = 7;
         constraints.gridwidth = 2;
         panel.add(funcionarioLabel, constraints);
 
         tipoSocioLabel = new JLabel("Tipo de Sócio: " + socio.getTipoSocio());
+        tipoSocioLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Definindo fonte maior
         constraints.gridx = 0;
         constraints.gridy = 8;
         constraints.gridwidth = 2;

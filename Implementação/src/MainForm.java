@@ -24,9 +24,9 @@ public class MainForm extends JFrame {
         mainPanel = new JPanel();
         gerirFuncionariosButton = new JButton("Gerir Funcionários");
         gerirLivrosButton = new JButton("Gerir Livros");
-        gerirSociosButton = new JButton("Gerir Sócios"); // Botão para gerir sócios
+        gerirSociosButton = new JButton("Novo Socio"); // Botão para gerir sócios
         listaSociosButton = new JButton("Lista de Sócios"); // Botão para abrir ListaSocioForm
-        pesquisaSocioButton = new JButton("Pesquisar Sócio"); // Botão para abrir o PesquisarSocioForm
+        pesquisaSocioButton = new JButton("Editar Socio"); // Botão para abrir o PesquisarSocioForm
         bemVindoLabel = new JLabel("Bem-vindo!");
 
         // Adiciona os componentes ao painel principal
