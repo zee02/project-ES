@@ -2,8 +2,6 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class GestaoPagamentosMultas extends JFrame {
     private CardLayout cardLayout;
@@ -13,10 +11,10 @@ public class GestaoPagamentosMultas extends JFrame {
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
 
-        addLandingPage();
-        addInserirNomePage();
-        addCategoriasPage();
         addGestaoPagamentosMultasPage();
+        addBibliotecaPage();
+        addSociosPage();
+        addLivrosPage();
 
         add(mainPanel);
         setTitle("Gestão de Pagamentos e Multas");
@@ -25,61 +23,79 @@ public class GestaoPagamentosMultas extends JFrame {
         setLocationRelativeTo(null);
     }
 
-    private void addLandingPage() {
-        JPanel landingPage = new JPanel(new BorderLayout());
-        JButton gerirButton = new JButton("Gerir");
-        gerirButton.addActionListener(e -> cardLayout.show(mainPanel, "Inserir Nome"));
-        landingPage.add(gerirButton, BorderLayout.CENTER);
-        mainPanel.add(landingPage, "Landing Page");
+    private void addGestaoPagamentosMultasPage() {
+        JPanel gestaoPagamentosMultasPage = new JPanel(new GridLayout(3, 1));
+        JButton bibliotecaButton = new JButton("Biblioteca");
+        JButton sociosButton = new JButton("Sócios");
+        JButton livrosButton = new JButton("Livros");
+
+        bibliotecaButton.addActionListener(e -> cardLayout.show(mainPanel, "Biblioteca"));
+        sociosButton.addActionListener(e -> cardLayout.show(mainPanel, "Sócios"));
+        livrosButton.addActionListener(e -> cardLayout.show(mainPanel, "Livros"));
+
+        gestaoPagamentosMultasPage.add(bibliotecaButton);
+        gestaoPagamentosMultasPage.add(sociosButton);
+        gestaoPagamentosMultasPage.add(livrosButton);
+
+        mainPanel.add(gestaoPagamentosMultasPage, "Gestão de Pagamentos e Multas");
+        cardLayout.show(mainPanel, "Gestão de Pagamentos e Multas");
     }
 
-    private void addInserirNomePage() {
-        JPanel inserirNomePage = new JPanel(new BorderLayout());
-        JTextField nomeField = new JTextField();
-        JButton entrarButton = new JButton("Entrar");
-        entrarButton.addActionListener(e -> {
-            String nome = nomeField.getText();
-            if (nome.equals("NomeExistente")) {
-                cardLayout.show(mainPanel, "Categorias");
+    private void addBibliotecaPage() {
+        JPanel bibliotecaPage = new JPanel(new BorderLayout());
+        String[] columnNames = {"Período", "Dinheiro", "Empréstimos", "Devoluções"};
+        Object[][] data = {
+                {"Este mês", "1000€", "50", "40"},
+                {"Último mês", "800€", "45", "38"},
+                {"Desde sempre", "50000€", "2000", "1900"}
+        };
+        JTable table = new JTable(data, columnNames);
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        bibliotecaPage.add(scrollPane, BorderLayout.CENTER);
+        JButton backButton = new JButton("Voltar");
+        backButton.addActionListener(e -> cardLayout.show(mainPanel, "Gestão de Pagamentos e Multas"));
+        bibliotecaPage.add(backButton, BorderLayout.SOUTH);
+
+        mainPanel.add(bibliotecaPage, "Biblioteca");
+    }
+
+    private void addSociosPage() {
+        JPanel sociosPage = new JPanel(new BorderLayout());
+        JButton searchButton = new JButton("Pesquisar Sócio por ID");
+
+        searchButton.addActionListener(e -> {
+            String socioID = JOptionPane.showInputDialog(this, "Introduza o ID do Sócio:");
+            if (socioID != null && !socioID.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Informações do Sócio com ID: " + socioID, "Info Sócio", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(this, "Nome não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "ID não encontrado ou inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         });
-        inserirNomePage.add(new JLabel("Inserir Nome:"), BorderLayout.NORTH);
-        inserirNomePage.add(nomeField, BorderLayout.CENTER);
-        inserirNomePage.add(entrarButton, BorderLayout.SOUTH);
-        mainPanel.add(inserirNomePage, "Inserir Nome");
+
+        sociosPage.add(searchButton, BorderLayout.CENTER);
+        JButton backButton = new JButton("Voltar");
+        backButton.addActionListener(e -> cardLayout.show(mainPanel, "Gestão de Pagamentos e Multas"));
+        sociosPage.add(backButton, BorderLayout.SOUTH);
+
+        mainPanel.add(sociosPage, "Sócios");
     }
 
-    private void addCategoriasPage() {
-        JPanel categoriasPage = new JPanel(new BorderLayout());
-        JButton pagamentosEMultasButton = new JButton("Pagamentos e Multas");
-        pagamentosEMultasButton.addActionListener(e -> cardLayout.show(mainPanel, "Gestão de Pagamentos e Multas"));
-        categoriasPage.add(pagamentosEMultasButton, BorderLayout.CENTER);
-        mainPanel.add(categoriasPage, "Categorias");
+    private void addLivrosPage() {
+        JPanel livrosPage = new JPanel(new BorderLayout());
+        JLabel label = new JLabel("Informações sobre os livros", SwingConstants.CENTER);
+        livrosPage.add(label, BorderLayout.CENTER);
+        JButton backButton = new JButton("Voltar");
+        backButton.addActionListener(e -> cardLayout.show(mainPanel, "Gestão de Pagamentos e Multas"));
+        livrosPage.add(backButton, BorderLayout.SOUTH);
+
+        mainPanel.add(livrosPage, "Livros");
     }
 
-    private void addGestaoPagamentosMultasPage() {
-        JPanel gestaoPagamentosMultasPage = new JPanel(new BorderLayout());
-        JButton acoesButton = new JButton("Ações");
-        acoesButton.addActionListener(e -> {
-            JPopupMenu popupMenu = new JPopupMenu();
-
-            JMenuItem anularItem = new JMenuItem("Anular");
-            anularItem.addActionListener(event -> JOptionPane.showMessageDialog(mainPanel, "Multa anulada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE));
-            popupMenu.add(anularItem);
-
-            JMenuItem notificarItem = new JMenuItem("Notificar");
-            notificarItem.addActionListener(event -> JOptionPane.showMessageDialog(mainPanel, "Notificação enviada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE));
-            popupMenu.add(notificarItem);
-
-            JMenuItem pagarItem = new JMenuItem("Pagar");
-            pagarItem.addActionListener(event -> JOptionPane.showMessageDialog(mainPanel, "Pagamento efetuado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE));
-            popupMenu.add(pagarItem);
-
-            popupMenu.show(gestaoPagamentosMultasPage, gestaoPagamentosMultasPage.getWidth() / 2, gestaoPagamentosMultasPage.getHeight() / 2);
-        });
-        gestaoPagamentosMultasPage.add(acoesButton, BorderLayout.CENTER);
-        mainPanel.add(gestaoPagamentosMultasPage, "Gestão de Pagamentos e Multas");
-    }
+    //public static void main(String[] args) {
+    //    SwingUtilities.invokeLater(() -> {
+     //       GestaoPagamentosMultas frame = new GestaoPagamentosMultas();
+    //        frame.setVisible(true);
+    //    });
+    //}
 }
