@@ -4,8 +4,11 @@ import controller.FuncionarioController;
 import model.Funcionario;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class ListarFuncionariosForm extends JFrame {
 
@@ -15,30 +18,67 @@ public class ListarFuncionariosForm extends JFrame {
         this.funcionarioController = funcionarioController;
 
         setTitle("Lista de Funcionários");
-        setSize(400, 300);
+        setSize(600, 400);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        // Criar modelo de tabela
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel.addColumn("Nome");
+        tableModel.addColumn("Salário");
+        tableModel.addColumn("Telefone");
+        tableModel.addColumn("Cargo");
 
-        for (Funcionario funcionario : funcionarioController.listarFuncionarios()) {
-            JButton btnApagar = new JButton("Apagar");
-            btnApagar.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    funcionarioController.apagarFuncionario(funcionario.getNome());
-                    JOptionPane.showMessageDialog(ListarFuncionariosForm.this, "Funcionário apagado com sucesso!");
-                    dispose(); // Fecha a janela atual
-                    new ListarFuncionariosForm(funcionarioController).setVisible(true); // Abre uma nova janela atualizada
-                }
-            });
-            panel.add(new JLabel(funcionario.getNome()));
-            panel.add(btnApagar);
+        // Preencher a tabela com dados dos funcionários
+        List<Funcionario> funcionarios = funcionarioController.listarFuncionarios();
+        for (Funcionario f : funcionarios) {
+            tableModel.addRow(new Object[]{f.getNome(), f.getSalario(), f.getTelefone(), f.getCargo()});
         }
 
-        JScrollPane scrollPane = new JScrollPane(panel);
-        add(scrollPane);
+        // Criar a tabela com o modelo
+        JTable funcionariosTable = new JTable(tableModel);
+        funcionariosTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Seleção única
 
-        setLocationRelativeTo(null);
+        // Adicionar a tabela a um painel de rolagem
+        JScrollPane scrollPane = new JScrollPane(funcionariosTable);
+        getContentPane().add(scrollPane);
+
+        // Botão para apagar funcionário selecionado
+        JButton btnApagar = new JButton("Apagar Funcionário");
+        btnApagar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = funcionariosTable.getSelectedRow();
+                if (selectedRow != -1) { // Verifica se uma linha foi selecionada
+                    String nome = (String) funcionariosTable.getValueAt(selectedRow, 0);
+                    funcionarioController.apagarFuncionario(nome);
+                    JOptionPane.showMessageDialog(ListarFuncionariosForm.this, "Funcionário apagado com sucesso!");
+                    atualizarTabela(tableModel); // Atualiza a tabela após apagar
+                } else {
+                    JOptionPane.showMessageDialog(ListarFuncionariosForm.this, "Selecione um funcionário para apagar.");
+                }
+            }
+        });
+
+        getContentPane().add(btnApagar, BorderLayout.SOUTH);
+    }
+
+    private void atualizarTabela(DefaultTableModel tableModel) {
+        tableModel.setRowCount(0); // Limpa todas as linhas da tabela
+        List<Funcionario> funcionarios = funcionarioController.listarFuncionarios();
+        for (Funcionario f : funcionarios) {
+            tableModel.addRow(new Object[]{f.getNome(), f.getSalario(), f.getTelefone(), f.getCargo()});
+        }
+    }
+
+    public static void main(String[] args) {
+        FuncionarioController funcionarioController = new FuncionarioController();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                ListarFuncionariosForm listarFuncionariosForm = new ListarFuncionariosForm(funcionarioController);
+                listarFuncionariosForm.setVisible(true);
+            }
+        });
     }
 }

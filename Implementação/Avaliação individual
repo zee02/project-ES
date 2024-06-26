@@ -33,3 +33,25 @@ GestaoPagamentosMultas
 GestaoPagamentosMultas.form
 PesquisaEstatisticas
 PesquisaEstatisticas.form
+
+
+José Fernandes 2211054
+
+Mudanças no MainForm
+
+View ->
+Categorias
+CriarFuncionarioForm
+EditarFuncionarioForm
+FuncionarioForm
+LandingPage
+ListaFuncionariosForm
+LivroForm
+
+Model ->
+Livro
+Funcionario
+
+Controllers ->
+LivroController
+FuncionarioController
