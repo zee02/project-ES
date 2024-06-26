@@ -42,15 +42,14 @@ public class GestaoPagamentosMultas extends JFrame {
         JScrollPane scrollPane = new JScrollPane(table);
         gestaoPagamentosMultasPage.add(scrollPane, BorderLayout.CENTER);
 
+        // Adiciona botão "Voltar"
+        JButton backButton = new JButton("Voltar");
+        backButton.addActionListener(e -> {
+        });
+        gestaoPagamentosMultasPage.add(backButton, BorderLayout.SOUTH);
+
         mainPanel.add(gestaoPagamentosMultasPage, "Gestão de Pagamentos e Multas");
         cardLayout.show(mainPanel, "Gestão de Pagamentos e Multas");
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            GestaoPagamentosMultas frame = new GestaoPagamentosMultas();
-            frame.setVisible(true);
-        });
     }
 
     class ButtonRenderer extends JButton implements TableCellRenderer {
@@ -98,7 +97,7 @@ public class GestaoPagamentosMultas extends JFrame {
 
                 notifyItem.addActionListener(e -> JOptionPane.showMessageDialog(button, "Notificado com sucesso"));
                 cancelItem.addActionListener(e -> {
-                    data[selectedRow][3] = "Anulado";
+                    data[selectedRow][3] = "Anulado"; // Change status to "Anulado"
                     table.repaint();
                 });
                 payItem.addActionListener(e -> showPaymentDetailsDialog(selectedRow));
@@ -152,7 +151,7 @@ public class GestaoPagamentosMultas extends JFrame {
         JButton submitButton = new JButton("Submeter");
         submitButton.addActionListener(e -> {
             JOptionPane.showMessageDialog(paymentDialog, "Pagamento submetido com sucesso");
-            data[row][3] = "Pago";
+            data[row][3] = "Pago"; // Change status to "Pago"
             table.repaint();
             paymentDialog.dispose();
         });
@@ -164,5 +163,12 @@ public class GestaoPagamentosMultas extends JFrame {
 
         paymentDialog.setLocationRelativeTo(this);
         paymentDialog.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            GestaoPagamentosMultas frame = new GestaoPagamentosMultas();
+            frame.setVisible(true);
+        });
     }
 }
