@@ -166,7 +166,7 @@ public class FuncionarioForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 RankingFuncionariosForm rankingForm = new RankingFuncionariosForm(funcionarioController);
-                rankingForm.setVisible(true); // Exibe a janela de ranking ao clicar no botão
+                rankingForm.setVisible(true); 
             }
         });
 
