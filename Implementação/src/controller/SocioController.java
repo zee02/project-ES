@@ -1,53 +1,63 @@
 package controller;
 
 import model.Socio;
+
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class SocioController {
-    private List<Socio> socios = new ArrayList<>();
+    private static SocioController instance;
+    private List<Socio> socios;
 
-    public String adicionarSocio(Socio socio) {
-        if (dadosValidos(socio)) {
-            socios.add(socio);
-            return "Novo Sócio Adicionado com sucesso";
-        } else {
-            return "Erro ao adicionar Novo Sócio";
+    private SocioController() {
+        socios = new ArrayList<>();
+    }
+
+    public static SocioController getInstance() {
+        if (instance == null) {
+            instance = new SocioController();
         }
+        return instance;
     }
 
-    private boolean dadosValidos(Socio socio) {
-        // Implementar validação dos dados do sócio
-        return true;
+    public boolean addSocio(Socio socio) {
+        return socios.add(socio);
     }
 
-    public Socio pesquisarSocio(String nome) {
+    public List<Socio> getAllSocios() {
+        return new ArrayList<>(socios);
+    }
+
+    public Socio getSocioById(int id) {
         for (Socio socio : socios) {
-            if (socio.getNome().equals(nome)) {
+            if (socio.getId() == id) {
                 return socio;
             }
         }
         return null;
     }
 
-    public List<Socio> listarSocios() {
-        return socios;
-    }
-
-    public String editarSocio(Socio socio) {
-        // Implementar lógica para editar sócio
-        for (Socio s : socios) {
-            if (s.getNome().equals(socio.getNome())) {
-                s.setNifCc(socio.getNifCc());
-                s.setTelefone(socio.getTelefone());
-                s.setMorada(socio.getMorada());
-                s.setEmail(socio.getEmail());
-                s.setTipoNotificacao(socio.getTipoNotificacao());
-                s.setFuncionario(socio.getFuncionario());
-                s.setTipoSocio(socio.getTipoSocio());
-                return "Sócio editado com sucesso";
+    public boolean atualizarSocio(Socio socioAtualizado) {
+        for (int i = 0; i < socios.size(); i++) {
+            Socio socio = socios.get(i);
+            if (socio.getId() == socioAtualizado.getId()) {
+                socios.set(i, socioAtualizado);
+                return true;
             }
         }
-        return "Sócio não encontrado";
+        return false; // Retorna false se o sócio não foi encontrado e atualizado
+    }
+
+    public boolean removerSocio(int id) {
+        Iterator<Socio> iterator = socios.iterator();
+        while (iterator.hasNext()) {
+            Socio socio = iterator.next();
+            if (socio.getId() == id) {
+                iterator.remove();
+                return true;
+            }
+        }
+        return false; // Retorna false se o sócio não foi encontrado e removido
     }
 }
