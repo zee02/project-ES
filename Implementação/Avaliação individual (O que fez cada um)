@@ -60,4 +60,9 @@ Controllers ->
 LivroController
 FuncionarioController
 
-Todos os Testes Unitários
+Testes Unitarios ->
+ApagarFuncionarioTest
+CriarFuncionarioTest
+EditarFuncionarioTest
+ListarFuncionariosTest
+RestaurarLivroTest
