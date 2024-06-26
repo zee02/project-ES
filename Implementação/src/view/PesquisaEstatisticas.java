@@ -17,6 +17,10 @@ public class PesquisaEstatisticas extends JFrame {
         addLivrosPage();
         addLivroEspecificoPage();
         addTopLivrosPage();
+        addAutoresPage();
+        addGenerosPage();
+        addSubgenerosPage();
+        addGeralPage();
 
         add(mainPanel);
         setTitle("Pesquisa e Estatística");
@@ -69,7 +73,6 @@ public class PesquisaEstatisticas extends JFrame {
         searchButton.addActionListener(e -> {
             String socioID = JOptionPane.showInputDialog(this, "Introduza o ID do Sócio:");
             if (socioID != null && !socioID.trim().isEmpty()) {
-                // Example of displaying borrowed books; replace with actual data retrieval logic
                 String[] columnNames = {"Título", "Data de Empréstimo", "Data de Devolução"};
                 Object[][] data = {
                         {"Livro A", "01/01/2022", "15/01/2022"},
@@ -121,7 +124,11 @@ public class PesquisaEstatisticas extends JFrame {
             String livroID = JOptionPane.showInputDialog(this, "Introduza o ID do Livro:");
             if (livroID != null && !livroID.trim().isEmpty()) {
                 // Example of displaying book details; replace with actual data retrieval logic
-                JOptionPane.showMessageDialog(this, "Informações do Livro com ID: " + livroID, "Info Livro", JOptionPane.INFORMATION_MESSAGE);
+                JFrame livroFrame = new JFrame("Informações do Livro");
+                livroFrame.setSize(300, 200);
+                JLabel infoLabel = new JLabel("Informações do Livro com ID: " + livroID, SwingConstants.CENTER);
+                livroFrame.add(infoLabel);
+                livroFrame.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(this, "ID não encontrado ou inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
             }
@@ -142,6 +149,11 @@ public class PesquisaEstatisticas extends JFrame {
         JButton subgeneroButton = new JButton("Subgênero");
         JButton geralButton = new JButton("Geral");
 
+        autoresButton.addActionListener(e -> cardLayout.show(mainPanel, "Autores"));
+        generoButton.addActionListener(e -> cardLayout.show(mainPanel, "Gêneros"));
+        subgeneroButton.addActionListener(e -> cardLayout.show(mainPanel, "Subgêneros"));
+        geralButton.addActionListener(e -> cardLayout.show(mainPanel, "Geral"));
+
         topLivrosPage.add(autoresButton);
         topLivrosPage.add(generoButton);
         topLivrosPage.add(subgeneroButton);
@@ -154,4 +166,145 @@ public class PesquisaEstatisticas extends JFrame {
         mainPanel.add(topLivrosPage, "Top Livros");
     }
 
+    private void addAutoresPage() {
+        JPanel autoresPage = new JPanel(new BorderLayout());
+        String[] autores = {"Autor 1", "Autor 2", "Autor 3"};
+        JComboBox<String> autoresDropdown = new JComboBox<>(autores);
+        autoresPage.add(autoresDropdown, BorderLayout.NORTH);
+
+        JButton selectButton = new JButton("Selecionar");
+        selectButton.addActionListener(e -> {
+            String selectedAutor = (String) autoresDropdown.getSelectedItem();
+            String[] columnNames = {"Título", "Ano", "Mais Info"};
+            Object[][] data = {
+                    {"Livro A", "2020", "Mais Info"},
+                    {"Livro B", "2021", "Mais Info"}
+            };
+            JTable table = new JTable(data, columnNames);
+            JScrollPane scrollPane = new JScrollPane(table);
+            autoresPage.add(scrollPane, BorderLayout.CENTER);
+
+            JButton maisInfoButton = new JButton("Mais Info");
+            maisInfoButton.addActionListener(event -> {
+                int selectedRow = table.getSelectedRow();
+                if (selectedRow != -1) {
+                    String bookTitle = (String) table.getValueAt(selectedRow, 0);
+                    JFrame bookInfoFrame = new JFrame("Informações do Livro");
+                    bookInfoFrame.setSize(300, 200);
+                    JLabel bookInfoLabel = new JLabel("Informações do Livro: " + bookTitle, SwingConstants.CENTER);
+                    bookInfoFrame.add(bookInfoLabel);
+                    bookInfoFrame.setVisible(true);
+                }
+            });
+            autoresPage.add(maisInfoButton, BorderLayout.SOUTH);
+        });
+
+        autoresPage.add(selectButton, BorderLayout.SOUTH);
+
+        mainPanel.add(autoresPage, "Autores");
+    }
+
+    private void addGenerosPage() {
+        JPanel generosPage = new JPanel(new BorderLayout());
+        String[] generos = {"Gênero 1", "Gênero 2", "Gênero 3"};
+        JComboBox<String> generosDropdown = new JComboBox<>(generos);
+        generosPage.add(generosDropdown, BorderLayout.NORTH);
+
+        JButton selectButton = new JButton("Selecionar");
+        selectButton.addActionListener(e -> {
+            String selectedGenero = (String) generosDropdown.getSelectedItem();
+            String[] columnNames = {"Título", "Ano", "Mais Info"};
+            Object[][] data = {
+                    {"Livro A", "2020", "Mais Info"},
+                    {"Livro B", "2021", "Mais Info"}
+            };
+            JTable table = new JTable(data, columnNames);
+            JScrollPane scrollPane = new JScrollPane(table);
+            generosPage.add(scrollPane, BorderLayout.CENTER);
+
+            JButton maisInfoButton = new JButton("Mais Info");
+            maisInfoButton.addActionListener(event -> {
+                int selectedRow = table.getSelectedRow();
+                if (selectedRow != -1) {
+                    String bookTitle = (String) table.getValueAt(selectedRow, 0);
+                    JFrame bookInfoFrame = new JFrame("Informações do Livro");
+                    bookInfoFrame.setSize(300, 200);
+                    JLabel bookInfoLabel = new JLabel("Informações do Livro: " + bookTitle, SwingConstants.CENTER);
+                    bookInfoFrame.add(bookInfoLabel);
+                    bookInfoFrame.setVisible(true);
+                }
+            });
+            generosPage.add(maisInfoButton, BorderLayout.SOUTH);
+        });
+
+        generosPage.add(selectButton, BorderLayout.SOUTH);
+
+        mainPanel.add(generosPage, "Gêneros");
+    }
+
+    private void addSubgenerosPage() {
+        JPanel subgenerosPage = new JPanel(new BorderLayout());
+        String[] subgeneros = {"Subgênero 1", "Subgênero 2", "Subgênero 3"};
+        JComboBox<String> subgenerosDropdown = new JComboBox<>(subgeneros);
+        subgenerosPage.add(subgenerosDropdown, BorderLayout.NORTH);
+
+        JButton selectButton = new JButton("Selecionar");
+        selectButton.addActionListener(e -> {
+            String selectedSubgenero = (String) subgenerosDropdown.getSelectedItem();
+            String[] columnNames = {"Título", "Ano", "Mais Info"};
+            Object[][] data = {
+                    {"Livro A", "2020", "Mais Info"},
+                    {"Livro B", "2021", "Mais Info"}
+            };
+            JTable table = new JTable(data, columnNames);
+            JScrollPane scrollPane = new JScrollPane(table);
+            subgenerosPage.add(scrollPane, BorderLayout.CENTER);
+
+            JButton maisInfoButton = new JButton("Mais Info");
+            maisInfoButton.addActionListener(event -> {
+                int selectedRow = table.getSelectedRow();
+                if (selectedRow != -1) {
+                    String bookTitle = (String) table.getValueAt(selectedRow, 0);
+                    JFrame bookInfoFrame = new JFrame("Informações do Livro");
+                    bookInfoFrame.setSize(300, 200);
+                    JLabel bookInfoLabel = new JLabel("Informações do Livro: " + bookTitle, SwingConstants.CENTER);
+                    bookInfoFrame.add(bookInfoLabel);
+                    bookInfoFrame.setVisible(true);
+                }
+            });
+            subgenerosPage.add(maisInfoButton, BorderLayout.SOUTH);
+        });
+
+        subgenerosPage.add(selectButton, BorderLayout.SOUTH);
+
+        mainPanel.add(subgenerosPage, "Subgêneros");
+    }
+
+    private void addGeralPage() {
+        JPanel geralPage = new JPanel(new BorderLayout());
+        String[] columnNames = {"Título", "Requisições", "Mais Info"};
+        Object[][] data = {
+                {"Livro A", "100", "Mais Info"},
+                {"Livro B", "90", "Mais Info"}
+        };
+        JTable table = new JTable(data, columnNames);
+        JScrollPane scrollPane = new JScrollPane(table);
+        geralPage.add(scrollPane, BorderLayout.CENTER);
+
+        JButton maisInfoButton = new JButton("Mais Info");
+        maisInfoButton.addActionListener(event -> {
+            int selectedRow = table.getSelectedRow();
+            if (selectedRow != -1) {
+                String bookTitle = (String) table.getValueAt(selectedRow, 0);
+                JFrame bookInfoFrame = new JFrame("Informações do Livro");
+                bookInfoFrame.setSize(300, 200);
+                JLabel bookInfoLabel = new JLabel("Informações do Livro: " + bookTitle, SwingConstants.CENTER);
+                bookInfoFrame.add(bookInfoLabel);
+                bookInfoFrame.setVisible(true);
+            }
+        });
+        geralPage.add(maisInfoButton, BorderLayout.SOUTH);
+
+        mainPanel.add(geralPage, "Geral");
+    }
 }
