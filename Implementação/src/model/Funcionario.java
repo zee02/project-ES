@@ -5,12 +5,14 @@ public class Funcionario {
     private double salario;
     private String telefone;
     private String cargo;
+    private int pontos; // Adicionando o campo pontos
 
-    public Funcionario(String nome, double salario, String telefone, String cargo) {
+    public Funcionario(String nome, double salario, String telefone, String cargo, int pontos) {
         this.nome = nome;
         this.salario = salario;
         this.telefone = telefone;
         this.cargo = cargo;
+        this.pontos = pontos;
     }
 
     // Getters and Setters
@@ -25,4 +27,7 @@ public class Funcionario {
 
     public String getCargo() { return cargo; }
     public void setCargo(String cargo) { this.cargo = cargo; }
+
+    public int getPontos() { return pontos; }
+    public void setPontos(int pontos) { this.pontos = pontos; }
 }

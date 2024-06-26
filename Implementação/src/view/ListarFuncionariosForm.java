@@ -69,21 +69,32 @@ public class ListarFuncionariosForm extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int selectedRow = funcionariosTable.getSelectedRow();
                 if (selectedRow != -1) {
-                    String nome = (String) funcionariosTable.getValueAt(selectedRow, 0);
-                    double salario = (double) funcionariosTable.getValueAt(selectedRow, 1);
-                    String telefone = (String) funcionariosTable.getValueAt(selectedRow, 2);
-                    String cargo = (String) funcionariosTable.getValueAt(selectedRow, 3);
+                    try {
+                        String nome = (String) funcionariosTable.getValueAt(selectedRow, 0);
+                        double salario = (double) funcionariosTable.getValueAt(selectedRow, 1);
+                        String telefone = (String) funcionariosTable.getValueAt(selectedRow, 2);
+                        String cargo = (String) funcionariosTable.getValueAt(selectedRow, 3);
 
-                    Funcionario funcionario = new Funcionario(nome, salario, telefone, cargo);
+                        // Atribui um valor padrão para pontos
+                        int pontos = 0;
 
-                    EditarFuncionarioForm editarFuncionarioForm = new EditarFuncionarioForm(funcionario);
-                    editarFuncionarioForm.setVisible(true);
-                    dispose(); // Fecha a janela atual
+                        // Cria um novo objeto Funcionario com todos os parâmetros
+                        Funcionario funcionario = new Funcionario(nome, salario, telefone, cargo, pontos);
+
+                        // Abre o formulário de edição com o funcionário selecionado
+                        EditarFuncionarioForm editarFuncionarioForm = new EditarFuncionarioForm(funcionario);
+                        editarFuncionarioForm.setVisible(true);
+                        dispose(); // Fecha a janela atual
+                    } catch (ClassCastException ex) {
+                        JOptionPane.showMessageDialog(ListarFuncionariosForm.this, "Erro ao acessar dados do funcionário selecionado.");
+                    }
                 } else {
                     JOptionPane.showMessageDialog(ListarFuncionariosForm.this, "Selecione um funcionário para editar.");
                 }
             }
         });
+
+
 
         btnVoltar.addActionListener(new ActionListener() {
             @Override
