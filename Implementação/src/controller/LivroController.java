@@ -26,12 +26,16 @@ public class LivroController {
         }
     }
 
-    public void restaurarLivro(String idLivro) {
+    public boolean restaurarLivro(String idLivro) {
         Livro livro = encontrarLivroPorId(idLivro);
         if (livro != null) {
-            livro.setEstado("Disponível");
+            livro.setEstado("Restauração em andamento");
+            return true;
         }
+        return false;
     }
+
+
 
     public List<Livro> getLivros() {
         return livros;
