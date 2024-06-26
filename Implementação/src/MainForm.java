@@ -50,7 +50,7 @@ public class MainForm extends JFrame {
         // Configure o JFrame
         setContentPane(mainPanel);
         setTitle("Sistema de Gestão");
-        setSize(400, 300); // Aumentei o tamanho para melhorar a visualização dos componentes
+        setSize(600, 400); // Aumentei o tamanho para melhorar a visualização dos componentes
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
