@@ -25,6 +25,14 @@ PesquisarSocioFormMinhasReservas
 PesquisarSocioFormReserva
 VisualizarSocioForm
 
+Teste Unitarios ->
+
+NovoSocioTest
+EditarSocioTest
+ListaSocioTest
+MinhasReservasApagarTest
+ListaEsperaTest
+
 Joao Bettencourt 2221463
 
 View ->
