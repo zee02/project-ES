@@ -12,12 +12,14 @@ public class MainForm extends JFrame {
     private JButton gerirSociosButton;
     private JButton listaSociosButton;
     private JButton pesquisaSocioButton;
-    private JButton gestaoReservasButton; // Botão para Gestão de Reservas
+    private JButton gestaoReservasButton; // Botão para Gestão de Reservas dsdsa
     private JButton gestaoPagamentosMultasButton; // Botão para Gestão de Pagamentos e Multas
     private JButton pesquisaEstatisticasButton; // Botão para Pesquisa e Estatísticas
     private JLabel bemVindoLabel;
     private JButton gestaoMinhasReservasButton;
     private JButton pesquisaReservaPorLivroButton;
+
+    private JButton PesquisaNovoEmprestimoButton;
 
     public MainForm() {
         // Inicialize os componentes
@@ -33,6 +35,7 @@ public class MainForm extends JFrame {
         pesquisaEstatisticasButton = new JButton("Pesquisa e Estatísticas"); // Botão para Pesquisa e Estatísticas
         gestaoMinhasReservasButton = new JButton("Minhas Reservas");
         pesquisaReservaPorLivroButton = new JButton("Pesquisar Reserva por Livro");
+        PesquisaNovoEmprestimoButton = new JButton(" Requistar Novo emprestimo");
 
         // Configure o layout do painel
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -47,6 +50,7 @@ public class MainForm extends JFrame {
         mainPanel.add(pesquisaEstatisticasButton); // Adicionar o botão de Pesquisa e Estatísticas
         mainPanel.add(gestaoMinhasReservasButton);
         mainPanel.add(pesquisaReservaPorLivroButton);
+        mainPanel.add(PesquisaNovoEmprestimoButton);
 
         // Configure o JFrame
         setContentPane(mainPanel);
@@ -90,6 +94,15 @@ public class MainForm extends JFrame {
                 listaSocioForm.setVisible(true);
             }
         });
+
+        PesquisaNovoEmprestimoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PesquisaNovoEmprestimo pesquisaNovoEmprestimo = new PesquisaNovoEmprestimo();
+                pesquisaNovoEmprestimo.setVisible(true);
+            }
+        });
+
 
         pesquisaReservaPorLivroButton.addActionListener(new ActionListener() {
             @Override
