@@ -48,9 +48,9 @@ public class PesquisaNovoEmprestimo extends JFrame{
         public void actionPerformed(ActionEvent e) {
             String idText = idField.getText().trim();
             if (!idText.isEmpty()) {
-                int socioId = Integer.parseInt(idText);
+
                 frame.dispose();
-                new EditarSocioForm(socioId);
+                new GestaoEmprestimosView();
             } else {
                 JOptionPane.showMessageDialog(frame, "Por favor, insira o ID do sócio.");
             }

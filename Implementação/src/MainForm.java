@@ -1,6 +1,7 @@
 import controller.FuncionarioController;
 import view.*;
 
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -98,8 +99,8 @@ public class MainForm extends JFrame {
         PesquisaNovoEmprestimoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PesquisaNovoEmprestimo pesquisaNovoEmprestimo = new PesquisaNovoEmprestimo();
-                pesquisaNovoEmprestimo.setVisible(true);
+                GestaoEmprestimosView gestaoEmprestimosView = new GestaoEmprestimosView();
+                gestaoEmprestimosView.setVisible(true);
             }
         });
 
