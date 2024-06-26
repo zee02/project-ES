@@ -58,10 +58,12 @@ public class MainForm extends JFrame {
         gerirFuncionariosButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                System.out.println("Botão Gerir Funcionários clicado!"); // Verificação simples
                 FuncionarioForm funcionarioForm = new FuncionarioForm();
                 funcionarioForm.setVisible(true);
             }
         });
+
 
         gerirLivrosButton.addActionListener(new ActionListener() {
             @Override
