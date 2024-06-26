@@ -2,6 +2,7 @@ package view;
 
 import controller.LivroController;
 import model.Livro;
+import model.Socio;
 
 import javax.swing.*;
 import java.awt.*;

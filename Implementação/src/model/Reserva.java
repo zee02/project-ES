@@ -5,6 +5,8 @@ public class Reserva {
     private Livro livro;
     private int socioId;
 
+
+
     private String funcionario;
 
     public Reserva(Livro livro, int socioId, String funcionario) {

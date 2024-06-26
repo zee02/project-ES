@@ -3,6 +3,7 @@ package view;
 import controller.ReservaController;
 import model.Livro;
 import model.Reserva;
+import model.Socio;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,9 +17,12 @@ public class NovaReservaForm extends JFrame {
     private JButton adicionarButton;
 
 
+
     public NovaReservaForm(Livro livro, int socioId) {
         this.livro = livro;
         this.socioId = socioId;
+
+
 
 
         setTitle("Nova Reserva");

@@ -16,6 +16,7 @@ public class MainForm extends JFrame {
     private JButton pesquisaEstatisticasButton; // Botão para Pesquisa e Estatísticas
 
     private JButton gestaoMinhasReservasButton;
+    private JButton pesquisaReservaPorLivroButton;
 
 
     public MainForm() {
@@ -30,6 +31,7 @@ public class MainForm extends JFrame {
         gestaoPagamentosMultasButton = new JButton("Gestão de Pagamentos e Multas"); // Botão para Gestão de Pagamentos e Multas
         pesquisaEstatisticasButton = new JButton("Pesquisa e Estatísticas"); // Botão para Pesquisa e Estatísticas
         gestaoMinhasReservasButton = new JButton("Minhas Reservas");
+        pesquisaReservaPorLivroButton = new JButton("Pesquisar Reserva por Livro");
 
         // Configure o layout do painel
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -42,6 +44,8 @@ public class MainForm extends JFrame {
         mainPanel.add(gestaoPagamentosMultasButton); // Adicionar o botão de Gestão de Pagamentos e Multas
         mainPanel.add(pesquisaEstatisticasButton); // Adicionar o botão de Pesquisa e Estatísticas
         mainPanel.add(gestaoMinhasReservasButton);
+        mainPanel.add(pesquisaReservaPorLivroButton);
+
 
 
         // Configure o JFrame
@@ -83,6 +87,16 @@ public class MainForm extends JFrame {
                 listaSocioForm.setVisible(true);
             }
         });
+
+        pesquisaReservaPorLivroButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PesquisarReservaPorLivroForm pesquisarReservaPorLivroForm = new PesquisarReservaPorLivroForm();
+                pesquisarReservaPorLivroForm.setVisible(true);
+            }
+        });
+
+
 
         pesquisaSocioButton.addActionListener(new ActionListener() {
             @Override
