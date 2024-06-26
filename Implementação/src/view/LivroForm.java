@@ -60,8 +60,12 @@ public class LivroForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String id = idField.getText();
-                livroController.restaurarLivro(id);
-                updateOutput();
+                if (livroController.restaurarLivro(id)) {
+                    JOptionPane.showMessageDialog(LivroForm.this, "Livro enviado para restauro!");
+                    updateOutput();
+                } else {
+                    JOptionPane.showMessageDialog(LivroForm.this, "Livro não encontrado!");
+                }
             }
         });
 
