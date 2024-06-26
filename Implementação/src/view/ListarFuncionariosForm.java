@@ -13,72 +13,93 @@ import java.util.List;
 public class ListarFuncionariosForm extends JFrame {
 
     private FuncionarioController funcionarioController;
+    private JTable funcionariosTable;
+    private DefaultTableModel tableModel;
 
     public ListarFuncionariosForm(FuncionarioController funcionarioController) {
         this.funcionarioController = funcionarioController;
 
         setTitle("Lista de Funcionários");
-        setSize(600, 400);
+        setSize(800, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Criar modelo de tabela
-        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel = new DefaultTableModel();
         tableModel.addColumn("Nome");
         tableModel.addColumn("Salário");
         tableModel.addColumn("Telefone");
         tableModel.addColumn("Cargo");
 
-        // Preencher a tabela com dados dos funcionários
-        List<Funcionario> funcionarios = funcionarioController.listarFuncionarios();
-        for (Funcionario f : funcionarios) {
-            tableModel.addRow(new Object[]{f.getNome(), f.getSalario(), f.getTelefone(), f.getCargo()});
-        }
+        funcionariosTable = new JTable(tableModel);
+        funcionariosTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        // Criar a tabela com o modelo
-        JTable funcionariosTable = new JTable(tableModel);
-        funcionariosTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Seleção única
-
-        // Adicionar a tabela a um painel de rolagem
         JScrollPane scrollPane = new JScrollPane(funcionariosTable);
-        getContentPane().add(scrollPane);
+        add(scrollPane, BorderLayout.CENTER);
 
-        // Botão para apagar funcionário selecionado
+        JPanel buttonPanel = new JPanel();
+        JButton btnEditar = new JButton("Editar Funcionário");
         JButton btnApagar = new JButton("Apagar Funcionário");
+        JButton btnVoltar = new JButton("Voltar");
+
+        buttonPanel.add(btnEditar);
+        buttonPanel.add(btnApagar);
+        buttonPanel.add(btnVoltar);
+
+        add(buttonPanel, BorderLayout.SOUTH);
+
+        atualizarTabela();
+
         btnApagar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int selectedRow = funcionariosTable.getSelectedRow();
-                if (selectedRow != -1) { // Verifica se uma linha foi selecionada
+                if (selectedRow != -1) {
                     String nome = (String) funcionariosTable.getValueAt(selectedRow, 0);
                     funcionarioController.apagarFuncionario(nome);
                     JOptionPane.showMessageDialog(ListarFuncionariosForm.this, "Funcionário apagado com sucesso!");
-                    atualizarTabela(tableModel); // Atualiza a tabela após apagar
+                    atualizarTabela();
                 } else {
                     JOptionPane.showMessageDialog(ListarFuncionariosForm.this, "Selecione um funcionário para apagar.");
                 }
             }
         });
 
-        getContentPane().add(btnApagar, BorderLayout.SOUTH);
-    }
-
-    private void atualizarTabela(DefaultTableModel tableModel) {
-        tableModel.setRowCount(0); // Limpa todas as linhas da tabela
-        List<Funcionario> funcionarios = funcionarioController.listarFuncionarios();
-        for (Funcionario f : funcionarios) {
-            tableModel.addRow(new Object[]{f.getNome(), f.getSalario(), f.getTelefone(), f.getCargo()});
-        }
-    }
-
-    public static void main(String[] args) {
-        FuncionarioController funcionarioController = new FuncionarioController();
-        SwingUtilities.invokeLater(new Runnable() {
+        btnEditar.addActionListener(new ActionListener() {
             @Override
-            public void run() {
-                ListarFuncionariosForm listarFuncionariosForm = new ListarFuncionariosForm(funcionarioController);
-                listarFuncionariosForm.setVisible(true);
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = funcionariosTable.getSelectedRow();
+                if (selectedRow != -1) {
+                    String nome = (String) funcionariosTable.getValueAt(selectedRow, 0);
+                    double salario = (double) funcionariosTable.getValueAt(selectedRow, 1);
+                    String telefone = (String) funcionariosTable.getValueAt(selectedRow, 2);
+                    String cargo = (String) funcionariosTable.getValueAt(selectedRow, 3);
+
+                    Funcionario funcionario = new Funcionario(nome, salario, telefone, cargo);
+
+                    EditarFuncionarioForm editarFuncionarioForm = new EditarFuncionarioForm(funcionario);
+                    editarFuncionarioForm.setVisible(true);
+                    dispose(); // Fecha a janela atual
+                } else {
+                    JOptionPane.showMessageDialog(ListarFuncionariosForm.this, "Selecione um funcionário para editar.");
+                }
             }
         });
+
+        btnVoltar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FuncionarioForm funcionarioForm = new FuncionarioForm(funcionarioController);
+                funcionarioForm.setVisible(true);
+                dispose(); // Fecha a janela atual
+            }
+        });
+    }
+
+    private void atualizarTabela() {
+        tableModel.setRowCount(0);
+        List<Funcionario> funcionarios = funcionarioController.listarFuncionarios();
+        for (Funcionario funcionario : funcionarios) {
+            tableModel.addRow(new Object[]{funcionario.getNome(), funcionario.getSalario(), funcionario.getTelefone(), funcionario.getCargo()});
+        }
     }
 }

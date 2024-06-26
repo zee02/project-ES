@@ -1,7 +1,6 @@
 package view;
 
 import controller.FuncionarioController;
-import model.Funcionario;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,8 +21,8 @@ public class FuncionarioForm extends JFrame {
 
     private FuncionarioController funcionarioController;
 
-    public FuncionarioForm() {
-        funcionarioController = new FuncionarioController();
+    public FuncionarioForm(FuncionarioController funcionarioController) {
+        this.funcionarioController = funcionarioController;
         funcionarioPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
@@ -33,14 +32,13 @@ public class FuncionarioForm extends JFrame {
         apagarButton = new JButton("Apagar");
         listarButton = new JButton("Listar");
 
-        nomeField = new JTextField(30); // Aumentando para 30 colunas
-        salarioField = new JTextField(30); // Aumentando para 30 colunas
-        telefoneField = new JTextField(30); // Aumentando para 30 colunas
-        cargoField = new JTextField(30); // Aumentando para 30 colunas
-        outputArea = new JTextArea(10, 30); // Aumentando para 30 colunas e 10 linhas
-        outputArea.setEditable(false); // Para evitar edição direta da área de saída
+        nomeField = new JTextField(30);
+        salarioField = new JTextField(30);
+        telefoneField = new JTextField(30);
+        cargoField = new JTextField(30);
+        outputArea = new JTextArea(10, 30);
+        outputArea.setEditable(false);
 
-        // Configurando os componentes usando GridBagLayout
         gbc.gridx = 0;
         gbc.gridy = 0;
         funcionarioPanel.add(new JLabel("Nome:"), gbc);
@@ -85,13 +83,7 @@ public class FuncionarioForm extends JFrame {
         gbc.gridx = 0;
         gbc.gridy = 7;
         funcionarioPanel.add(adicionarButton, gbc);
-
-        gbc.gridx = 1;
-        funcionarioPanel.add(editarButton, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 8;
-        funcionarioPanel.add(apagarButton, gbc);
+        
 
         gbc.gridx = 1;
         funcionarioPanel.add(listarButton, gbc);
@@ -100,11 +92,21 @@ public class FuncionarioForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String nome = nomeField.getText();
-                double salario = Double.parseDouble(salarioField.getText());
+                String salarioText = salarioField.getText();
                 String telefone = telefoneField.getText();
                 String cargo = cargoField.getText();
-                funcionarioController.criarFuncionario(nome, salario, telefone, cargo);
-                outputArea.setText("Funcionário criado com sucesso!");
+
+                if (!isValidInput(nome, salarioText, telefone, cargo)) {
+                    return;
+                }
+
+                try {
+                    double salario = Double.parseDouble(salarioText);
+                    funcionarioController.criarFuncionario(nome, salario, telefone, cargo);
+                    outputArea.setText("Funcionário criado com sucesso!");
+                } catch (NumberFormatException ex) {
+                    outputArea.setText("Salário deve ser um número válido.");
+                }
             }
         });
 
@@ -112,11 +114,21 @@ public class FuncionarioForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String nome = nomeField.getText();
-                double salario = Double.parseDouble(salarioField.getText());
+                String salarioText = salarioField.getText();
                 String telefone = telefoneField.getText();
                 String cargo = cargoField.getText();
-                funcionarioController.editarFuncionario(nome, salario, telefone, cargo);
-                outputArea.setText("Funcionário editado com sucesso!");
+
+                if (!isValidInput(nome, salarioText, telefone, cargo)) {
+                    return;
+                }
+
+                try {
+                    double salario = Double.parseDouble(salarioText);
+                    funcionarioController.editarFuncionario(nome, salario, telefone, cargo);
+                    outputArea.setText("Funcionário editado com sucesso!");
+                } catch (NumberFormatException ex) {
+                    outputArea.setText("Salário deve ser um número válido.");
+                }
             }
         });
 
@@ -124,6 +136,10 @@ public class FuncionarioForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String nome = nomeField.getText();
+                if (nome.isEmpty()) {
+                    outputArea.setText("O campo Nome deve ser preenchido.");
+                    return;
+                }
                 funcionarioController.apagarFuncionario(nome);
                 outputArea.setText("Funcionário apagado com sucesso!");
             }
@@ -132,27 +148,55 @@ public class FuncionarioForm extends JFrame {
         listarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                StringBuilder sb = new StringBuilder();
-                for (Funcionario f : funcionarioController.listarFuncionarios()) {
-                    sb.append("Nome: ").append(f.getNome()).append(", Salário: ").append(f.getSalario())
-                            .append(", Telefone: ").append(f.getTelefone()).append(", Cargo: ").append(f.getCargo()).append("\n");
-                }
-                outputArea.setText(sb.toString());
+                ListarFuncionariosForm listarFuncionariosForm = new ListarFuncionariosForm(funcionarioController);
+                listarFuncionariosForm.setVisible(true);
+                dispose();
             }
         });
 
         setContentPane(funcionarioPanel);
         setTitle("Gerenciar Funcionários");
-        setSize(800, 600); // Ajustando o tamanho conforme necessário
+        setSize(800, 600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
+    }
+
+    private boolean isValidInput(String nome, String salarioText, String telefone, String cargo) {
+        if (nome.isEmpty() || salarioText.isEmpty() || telefone.isEmpty() || cargo.isEmpty()) {
+            outputArea.setText("Todos os campos devem ser preenchidos.");
+            return false;
+        }
+
+        if (!nome.matches("[a-zA-Z ]+")) {
+            outputArea.setText("O nome deve conter apenas letras e espaços.");
+            return false;
+        }
+
+        if (!telefone.matches("\\d{9}")) {
+            outputArea.setText("O telefone deve conter exatamente 9 dígitos.");
+            return false;
+        }
+
+        if (!cargo.matches("[a-zA-Z ]+")) {
+            outputArea.setText("O cargo deve conter apenas letras e espaços.");
+            return false;
+        }
+
+        try {
+            Double.parseDouble(salarioText);
+        } catch (NumberFormatException ex) {
+            outputArea.setText("Salário deve ser um número válido.");
+            return false;
+        }
+
+        return true;
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                FuncionarioForm funcionarioForm = new FuncionarioForm();
+                FuncionarioForm funcionarioForm = new FuncionarioForm(new FuncionarioController());
                 funcionarioForm.setVisible(true);
             }
         });

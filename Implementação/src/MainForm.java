@@ -1,3 +1,4 @@
+import controller.FuncionarioController;
 import view.*;
 
 import javax.swing.*;
@@ -54,15 +55,16 @@ public class MainForm extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Adicione os ouvintes de eventos aos botões
         gerirFuncionariosButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Botão Gerir Funcionários clicado!"); // Verificação simples
-                FuncionarioForm funcionarioForm = new FuncionarioForm();
+                FuncionarioController funcionarioController = new FuncionarioController();
+                FuncionarioForm funcionarioForm = new FuncionarioForm(funcionarioController);
                 funcionarioForm.setVisible(true);
             }
         });
+
 
 
         gerirLivrosButton.addActionListener(new ActionListener() {
