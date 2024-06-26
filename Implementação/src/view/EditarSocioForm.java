@@ -37,14 +37,14 @@ public class EditarSocioForm extends JFrame {
         constraints.insets = new Insets(5, 5, 5, 5);
 
         idLabel = new JLabel("ID: " + socio.getId());
-        idLabel.setFont(new Font("Arial", Font.BOLD, 16)); // Definindo fonte maior e em negrito
+        idLabel.setFont(new Font("Arial", Font.BOLD, 18)); // Definindo fonte maior e em negrito para o ID
         constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.gridwidth = 2;
         panel.add(idLabel, constraints);
 
         JLabel nomeLabel = new JLabel("Nome:");
-        nomeLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Definindo fonte maior
+        nomeLabel.setFont(new Font("Arial", Font.BOLD, 14)); // Definindo fonte maior e em negrito para o nome
         constraints.gridx = 0;
         constraints.gridy = 1;
         constraints.gridwidth = 1;
@@ -56,7 +56,7 @@ public class EditarSocioForm extends JFrame {
         panel.add(nomeField, constraints);
 
         JLabel nifLabel = new JLabel("NIF/CC:");
-        nifLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Definindo fonte maior
+        nifLabel.setFont(new Font("Arial", Font.BOLD, 14)); // Definindo fonte maior e em negrito para NIF/CC
         constraints.gridx = 0;
         constraints.gridy = 2;
         panel.add(nifLabel, constraints);
@@ -67,7 +67,7 @@ public class EditarSocioForm extends JFrame {
         panel.add(nifField, constraints);
 
         JLabel telefoneLabel = new JLabel("Telefone:");
-        telefoneLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Definindo fonte maior
+        telefoneLabel.setFont(new Font("Arial", Font.BOLD, 14)); // Definindo fonte maior e em negrito para telefone
         constraints.gridx = 0;
         constraints.gridy = 3;
         panel.add(telefoneLabel, constraints);
@@ -78,7 +78,7 @@ public class EditarSocioForm extends JFrame {
         panel.add(telefoneField, constraints);
 
         JLabel moradaLabel = new JLabel("Morada:");
-        moradaLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Definindo fonte maior
+        moradaLabel.setFont(new Font("Arial", Font.BOLD, 14)); // Definindo fonte maior e em negrito para morada
         constraints.gridx = 0;
         constraints.gridy = 4;
         panel.add(moradaLabel, constraints);
@@ -89,7 +89,7 @@ public class EditarSocioForm extends JFrame {
         panel.add(moradaField, constraints);
 
         JLabel emailLabel = new JLabel("Email:");
-        emailLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Definindo fonte maior
+        emailLabel.setFont(new Font("Arial", Font.BOLD, 14)); // Definindo fonte maior e em negrito para email
         constraints.gridx = 0;
         constraints.gridy = 5;
         panel.add(emailLabel, constraints);
@@ -100,7 +100,7 @@ public class EditarSocioForm extends JFrame {
         panel.add(emailField, constraints);
 
         JLabel tipoNotificacaoLabel = new JLabel("Tipo de Notificação:");
-        tipoNotificacaoLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Definindo fonte maior
+        tipoNotificacaoLabel.setFont(new Font("Arial", Font.BOLD, 14)); // Definindo fonte maior e em negrito para tipo de notificação
         constraints.gridx = 0;
         constraints.gridy = 6;
         panel.add(tipoNotificacaoLabel, constraints);
@@ -113,14 +113,14 @@ public class EditarSocioForm extends JFrame {
         panel.add(tipoNotificacaoComboBox, constraints);
 
         funcionarioLabel = new JLabel("Funcionário: " + socio.getFuncionario());
-        funcionarioLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Definindo fonte maior
+        funcionarioLabel.setFont(new Font("Arial", Font.BOLD, 14)); // Definindo fonte maior e em negrito para funcionário
         constraints.gridx = 0;
         constraints.gridy = 7;
         constraints.gridwidth = 2;
         panel.add(funcionarioLabel, constraints);
 
         tipoSocioLabel = new JLabel("Tipo de Sócio: " + socio.getTipoSocio());
-        tipoSocioLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Definindo fonte maior
+        tipoSocioLabel.setFont(new Font("Arial", Font.BOLD, 14)); // Definindo fonte maior e em negrito para tipo de sócio
         constraints.gridx = 0;
         constraints.gridy = 8;
         constraints.gridwidth = 2;
