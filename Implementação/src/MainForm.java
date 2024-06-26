@@ -12,6 +12,9 @@ public class MainForm extends JFrame {
     private JButton listaSociosButton;
     private JButton pesquisaSocioButton;
     private JButton gestaoReservasButton; // Botão para Gestão de Reservas
+    private JButton gestaoPagamentosMultasButton; // Botão para Gestão de Pagamentos e Multas
+    private JButton pesquisaEstatisticasButton; // Botão para Pesquisa e Estatísticas
+
 
     public MainForm() {
         // Inicialize os componentes
@@ -22,6 +25,8 @@ public class MainForm extends JFrame {
         listaSociosButton = new JButton("Lista de Sócios");
         pesquisaSocioButton = new JButton("Pesquisar Sócio");
         gestaoReservasButton = new JButton("Gestão de Reservas"); // Botão para Gestão de Reservas
+        gestaoPagamentosMultasButton = new JButton("Gestão de Pagamentos e Multas"); // Botão para Gestão de Pagamentos e Multas
+        pesquisaEstatisticasButton = new JButton("Pesquisa e Estatísticas"); // Botão para Pesquisa e Estatísticas
 
         // Configure o layout do painel
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -31,6 +36,9 @@ public class MainForm extends JFrame {
         mainPanel.add(listaSociosButton);
         mainPanel.add(pesquisaSocioButton);
         mainPanel.add(gestaoReservasButton); // Adicionar o botão de Gestão de Reservas
+        mainPanel.add(gestaoPagamentosMultasButton); // Adicionar o botão de Gestão de Pagamentos e Multas
+        mainPanel.add(pesquisaEstatisticasButton); // Adicionar o botão de Pesquisa e Estatísticas
+
 
         // Configure o JFrame
         setContentPane(mainPanel);
@@ -85,6 +93,22 @@ public class MainForm extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 GestaoReservasForm gestaoReservasForm = new GestaoReservasForm();
                 gestaoReservasForm.setVisible(true);
+            }
+        });
+
+        gestaoPagamentosMultasButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GestaoPagamentosMultas gestaoPagamentosMultasForm = new GestaoPagamentosMultas();
+                gestaoPagamentosMultasForm.setVisible(true);
+            }
+        });
+
+        pesquisaEstatisticasButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PesquisaEstatisticas pesquisaEstatisticasForm = new PesquisaEstatisticas();
+                pesquisaEstatisticasForm.setVisible(true);
             }
         });
 
