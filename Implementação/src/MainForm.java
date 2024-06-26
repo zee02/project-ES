@@ -1,91 +1,81 @@
-import view.*;
-
+import view.LandingPageNomeForm;
+import view.NomeValidadoListener;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MainForm extends JFrame {
+
     private JPanel mainPanel;
     private JButton gerirFuncionariosButton;
     private JButton gerirLivrosButton;
-    private JButton gerirSociosButton;
-    private JButton listaSociosButton;
-    private JButton pesquisaSocioButton; // Botão para abrir o PesquisaSocioForm
+    private JLabel bemVindoLabel; // Label para mostrar "Bem-vindo, <nome>!"
 
     public MainForm() {
-        // Inicialize os componentes
-        mainPanel = new JPanel();
-        gerirFuncionariosButton = new JButton("Gerir Funcionários");
-        gerirLivrosButton = new JButton("Gerir Livros");
-        gerirSociosButton = new JButton("Novo Sócio");
-        listaSociosButton = new JButton("Lista de Sócios");
-        pesquisaSocioButton = new JButton("Pesquisar Sócio"); // Botão para abrir o PesquisaSocioForm
-
-        // Configure o layout do painel
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        mainPanel.add(gerirFuncionariosButton);
-        mainPanel.add(gerirLivrosButton);
-        mainPanel.add(gerirSociosButton);
-        mainPanel.add(listaSociosButton);
-        mainPanel.add(pesquisaSocioButton); // Adicionar o botão de pesquisa de sócio
-
-        // Configure o JFrame
-        setContentPane(mainPanel);
+        // Configura o JFrame
         setTitle("Sistema de Gestão");
         setSize(400, 200);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Adicione os ouvintes de eventos aos botões
-        gerirFuncionariosButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                FuncionarioForm funcionarioForm = new FuncionarioForm();
-                funcionarioForm.setVisible(true);
-            }
-        });
+        // Inicializa os componentes da interface
+        mainPanel = new JPanel();
+        gerirFuncionariosButton = new JButton("Gerir Funcionários");
+        gerirLivrosButton = new JButton("Gerir Livros");
+        bemVindoLabel = new JLabel("Bem-vindo!");
 
-        gerirLivrosButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                LivroForm livroForm = new LivroForm();
-                livroForm.setVisible(true);
-            }
-        });
+        // Adiciona os componentes ao painel principal
+        mainPanel.add(bemVindoLabel);
+        mainPanel.add(gerirFuncionariosButton);
+        mainPanel.add(gerirLivrosButton);
 
-        gerirSociosButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                NovoSocioForm novoSocioForm = new NovoSocioForm();
-                novoSocioForm.setVisible(true);
-            }
-        });
+        // Adiciona o painel principal ao JFrame
+        setContentPane(mainPanel);
 
-        listaSociosButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ListaSocioForm listaSocioForm = new ListaSocioForm();
-                listaSocioForm.setVisible(true);
-            }
-        });
+        // Define inicialmente como invisível
+        setVisible(false);
+    }
 
-        pesquisaSocioButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                PesquisarSocioForm pesquisaSocioForm = new PesquisarSocioForm();
-                pesquisaSocioForm.setVisible(true);
-            }
-        });
+    public void mostrarPaginaPrincipal(String nome) {
+        // Atualiza o label de boas-vindas com o nome
+        bemVindoLabel.setText("Bem-vindo, " + nome + "!");
 
+        // Define o JFrame como visível
         setVisible(true);
+    }
+
+    // Método para abrir a Landing Page e iniciar o fluxo de login
+    private void abrirLandingPage() {
+        LandingPageNomeForm landingPageNomeForm = new LandingPageNomeForm();
+        landingPageNomeForm.setVisible(true);
+        landingPageNomeForm.addNomeValidadoListener(new NomeValidadoListener() {
+            @Override
+            public void nomeValidado(String nome) {
+                // Quando o nome é validado, exibir MainForm
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        mostrarPaginaPrincipal(nome);
+                        landingPageNomeForm.dispose(); // Fechar a Landing Page
+                    }
+                });
+            }
+
+            @Override
+            public void nomeInvalido() {
+                // Caso o nome seja inválido (não tratado no exemplo anterior)
+                JOptionPane.showMessageDialog(MainForm.this, "Ocorreu um erro, o teu pedido de acesso não teve sucesso");
+            }
+        });
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new MainForm().setVisible(true);
+                MainForm mainForm = new MainForm();
+                mainForm.abrirLandingPage(); // Abre a Landing Page inicialmente
             }
         });
     }
