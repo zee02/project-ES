@@ -21,7 +21,7 @@ public class GestaoPagamentosMultas extends JFrame {
         add(mainPanel);
         setTitle("Gestão de Pagamentos e Multas");
         setSize(400, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
     }
 
