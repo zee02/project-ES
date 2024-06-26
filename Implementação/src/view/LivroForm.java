@@ -1,7 +1,10 @@
 package view;
+
 import controller.LivroController;
+import model.Livro;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -9,7 +12,7 @@ import java.util.List;
 public class LivroForm extends JFrame {
     private JPanel livroPanel;
     private JTextField idField;
-    private JTextField estadoField;
+    private JComboBox<String> estadoComboBox;
     private JButton gerenciarEstadoButton;
     private JButton restaurarButton;
     private JTextArea outputArea;
@@ -20,7 +23,7 @@ public class LivroForm extends JFrame {
         // Inicialize os componentes
         livroPanel = new JPanel();
         idField = new JTextField(20);
-        estadoField = new JTextField(20);
+        estadoComboBox = new JComboBox<>(new String[]{"Novo", "Usado"});
         gerenciarEstadoButton = new JButton("Gerenciar Estado");
         restaurarButton = new JButton("Restaurar");
         outputArea = new JTextArea(10, 30);
@@ -30,7 +33,7 @@ public class LivroForm extends JFrame {
         livroPanel.add(new JLabel("ID do Livro:"));
         livroPanel.add(idField);
         livroPanel.add(new JLabel("Estado do Livro:"));
-        livroPanel.add(estadoField);
+        livroPanel.add(estadoComboBox);
         livroPanel.add(gerenciarEstadoButton);
         livroPanel.add(restaurarButton);
         livroPanel.add(new JScrollPane(outputArea));
@@ -47,7 +50,7 @@ public class LivroForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String id = idField.getText();
-                String estado = estadoField.getText();
+                String estado = (String) estadoComboBox.getSelectedItem();
                 livroController.gerenciarEstadoLivro(id, estado);
                 updateOutput();
             }
@@ -67,11 +70,11 @@ public class LivroForm extends JFrame {
     }
 
     private void updateOutput() {
-        List<String> estadosLivros = livroController.listarEstadosLivros();
+        List<Livro> livros = livroController.getLivros();
         StringBuilder sb = new StringBuilder();
         sb.append("Estados dos Livros:\n");
-        for (String estado : estadosLivros) {
-            sb.append(estado).append("\n");
+        for (Livro livro : livros) {
+            sb.append(livro.toString()).append("\n");
         }
         outputArea.setText(sb.toString());
     }
@@ -85,4 +88,3 @@ public class LivroForm extends JFrame {
         });
     }
 }
-
